@@ -4,36 +4,39 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
 const useItems = () => {
-    const [items, setItems] = useState([]); //useState() hook, sets initial state to an empty array
+    const [items, setItems] = useState([])
     useEffect(() => {
-        firebase
-            .firestore() //access firestore
-            .collection("users") //access "items" collection
+        const unsubscribe = firebase
+            .firestore()
+            .collection("users")
             .onSnapshot(snapshot => {
-                //You can "listen" to a document with the onSnapshot() method.
+
                 const listItems = snapshot.docs.map(doc => ({
-                    //map each document into snapshot
-                    id: doc.id, //id and data pushed into items array
-                    ...doc.data() //spread operator merges data to id.
+
+                    id: doc.id,
+                    ...doc.data()
                 }));
-                setItems(listItems); //items is equal to listItems
+                setItems(listItems);
             });
+        return () => unsubscribe();
+
     }, []);
-    return items;
+    return items
 };
 
-const ItemList = () => {
+const deleteItem = (id) => {
+    firebase
+        .firestore()
+        .collection("users")
+        .doc(id)
+        .delete()
+}
 
-    const deleteItem = (id) => {
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(id)
-          .delete()
-    }
+const ItemList = ({ editItem }) => {
     const listItem = useItems();
-    
+
     return (
+
         <Table striped bordered hover>
             <tbody>
                 <tr>
@@ -47,7 +50,7 @@ const ItemList = () => {
                     <td className="tg-a02x"></td>
                 </tr>
             </tbody>
-            {listItem.map(item => (
+            {listItem.map((item) => (
                 <tbody key={item.id}>
                     <tr>
                         <td className="tg-ycr8">{item.name}</td>
@@ -64,7 +67,9 @@ const ItemList = () => {
                             </Button></td>
                         <td className="tg-ycr8">
                             <Button
-                                variant="warning">
+                                variant="warning"
+                                onClick={() => editItem(item)}
+                            >
                                 Editar
                             </Button></td>
 

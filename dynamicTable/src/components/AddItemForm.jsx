@@ -4,21 +4,15 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 const AddItemForm = () => {
-    //useState() hook captures the value from the input value
+
     const [name, setName] = useState("")
     const [age, setAge] = useState("")
     const [cpf, setCpf] = useState("")
     const [status, setStatus] = useState("")
     const [city, setCity] = useState("")
     const [uf, setUf] = useState("")
-    /* The onSubmit function we takes the 'e'
-      or event and submits it to Firebase
-      */
+
     const onSubmit = e => {
-        /* 
-        preventDefault is important because it
-        prevents the whole page from reloading
-        */
         e.preventDefault()
         firebase
             .firestore()
@@ -31,7 +25,6 @@ const AddItemForm = () => {
                 city,
                 uf,
             })
-            //.then will reset the form to nothing
             .then(() => setName(""), setAge(""), setCpf(""), setStatus(""), setCity(""), setUf(""))
     }
 
@@ -53,7 +46,7 @@ const AddItemForm = () => {
                 <Form.Control
                     placeholder="Idade"
                     value={age}
-                    name="type"
+                    name="age"
                     onChange={e => setAge(e.currentTarget.value)}
                     type="number" />
             </Form.Group>
@@ -63,19 +56,20 @@ const AddItemForm = () => {
                 <Form.Control
                     placeholder="cpf"
                     value={cpf}
-                    name="qty"
+                    name="cpf"
                     onChange={e => setCpf(e.currentTarget.value)}
                     type="number" />
             </Form.Group>
 
             <Form.Group controlId="formBasicStatus">
-                <Form.Label>Estado Civíl</Form.Label>
+                <Form.Label>Estado</Form.Label>
                 <Form.Control
-                    placeholder="status"
-                    value={status}
-                    name="status"
-                    onChange={e => setStatus(e.currentTarget.value)}
-                    type="text" />
+                 placeholder="uf"
+                 value={uf}
+                 name="uf"
+                 onChange={e => setUf(e.currentTarget.value)}
+                 type="text"
+                 />
             </Form.Group>
 
             <Form.Group controlId="formBasicCity">
@@ -89,13 +83,14 @@ const AddItemForm = () => {
             </Form.Group>
 
             <Form.Group controlId="formBasicUf">
-                <Form.Label>UF</Form.Label>
+                <Form.Label>Estado civil</Form.Label>
                 <Form.Control
-                    placeholder="uf"
-                    value={uf}
-                    name="uf"
-                    onChange={e => setUf(e.currentTarget.value)}
-                    type="text" />
+                 placeholder="status"
+                 value={status}
+                 name="status"
+                 onChange={e => setStatus(e.currentTarget.value)}
+                 type="text"
+                    />
             </Form.Group>
 
             <Button

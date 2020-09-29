@@ -1,5 +1,5 @@
 import firebase from "firebase/app"
-import 'firebase/firestore'
+import "firebase/firestore"
 
 firebase.initializeApp({
   apiKey: "AIzaSyB_JJaW2U-p4SDBYI08pst77nsDH_fMm8Q",
@@ -11,8 +11,4 @@ firebase.initializeApp({
   appId: "1:816405956759:web:16899c14042bf6a29b81d2",
   measurementId: "G-B3C9YL05MB"
 });
-// Initialize Firebase
-
-//firebase.analytics()
-
 export default firebase
