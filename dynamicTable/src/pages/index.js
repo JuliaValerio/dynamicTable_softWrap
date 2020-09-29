@@ -3,6 +3,8 @@ import firebase from "firebase/app"
 import ItemList from '../components/ItemList'
 import AddItemForm from '../components/AddItemForm'
 import UpdateItems from '../components/UpdateItems'
+import Header from '../components/Header'
+import './style.css'
 
 export default function Home() {
 
@@ -12,11 +14,11 @@ export default function Home() {
   const [editing, setEditing] = useState(false)
 
   const [currentItem, setCurrentItem] = useState(initialItemState)
-  
+
   const editItem = (item) => {
     setEditing(true)
     setCurrentItem({
-      id:item.id,
+      id: item.id,
       name: item.name,
       age: item.age,
       cpf: item.cpf,
@@ -43,19 +45,24 @@ export default function Home() {
 
   return (
     <div className="container">
-      <h1>React-Table CRUD App </h1>
-      <h2>List</h2>
-      <ItemList editItem={editItem} />
-      {editing ? (
-        <UpdateItems
-          setEditing={setEditing}
-          currentItem={currentItem}
-          updateItem={updateItem}
-        />
-      ) : (
-        <AddItemForm />
-      )}
-      
+      <div>
+        <Header />
+      </div>
+      <div>
+        {editing ? (
+          <UpdateItems
+            setEditing={setEditing}
+            currentItem={currentItem}
+            updateItem={updateItem}
+          />
+        ) : (
+            <AddItemForm />
+          )}
+      </div>
+      <div>
+        <ItemList editItem={editItem} />
+      </div>
+
     </div>
   )
 

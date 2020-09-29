@@ -1,0 +1,8 @@
+.container{
+    width: 80%;
+    background-color: rgba(250, 235, 215, 0.467);
+}
+
+.container div{
+    margin: 10px;
+}

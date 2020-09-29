@@ -2,8 +2,10 @@ import React, { useState } from "react"
 import firebase from "firebase"
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Collapse from 'react-bootstrap/Collapse'
 
 const AddItemForm = () => {
+    const [open, setOpen] = useState(false);
 
     const [name, setName] = useState("")
     const [age, setAge] = useState("")
@@ -29,6 +31,15 @@ const AddItemForm = () => {
     }
 
     return (
+        <>
+        <Button
+          onClick={() => setOpen(!open)}
+          aria-controls="example-collapse-text"
+          aria-expanded={open}
+        >
+          + Adicicionar
+        </Button>
+        <Collapse in={open}>
         <Form className="container" onSubmit={onSubmit} >
             <h2>Adicione um novo Usuario :)</h2>
             <Form.Group controlId="formBasicName">
@@ -94,10 +105,12 @@ const AddItemForm = () => {
             </Form.Group>
 
             <Button
-                variant="primary" type="submit">
+                variant="primary" type="submit" onClick={() => setOpen(!open)}>
                 salvar
             </Button>
         </ Form >
+        </Collapse>
+      </>
     )
 }
 export default AddItemForm
